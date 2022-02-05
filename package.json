@@ -1,6 +1,6 @@
 {
   "name": "bbb-video-scraper",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This is a scraper written in Node.js and using Puppeteer that gets the videos served by BBB services",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/euberdeveloper/bbb-video-scraper/issues"
   },
-  "homepage": "https://github.com/euberdeveloper/bbb-video-scraper#readme"
+  "homepage": "https://github.com/euberdeveloper/bbb-video-scraper#readme",
+  "dependencies": {
+    "puppeteer": "^13.1.3",
+    "puppeteer-video-recorder": "^1.0.5"
+  }
 }
