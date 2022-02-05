@@ -1,1 +1,2 @@
-import * as puppeteer from 'puppeteer';
+export * from './types';
+export * from './utils/scraper';
