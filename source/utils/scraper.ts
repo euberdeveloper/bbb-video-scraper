@@ -78,12 +78,18 @@ export class BBBVideoScraper {
             await page.goto(url, { waitUntil: 'networkidle0' });
 
             if (scrapingOptions.duration === null) {
+                logger.debug('Waiting for selector of video duration');
+                await page.waitForSelector('.vjs-remaining-time-display');
+
                 logger.debug('Getting the total time of the video');
                 const durationText = await page.$eval('.vjs-remaining-time-display', el => {
                     return el.innerHTML;
                 });
                 scrapingOptions.duration = this.handleDurationText(durationText);
             }
+
+            logger.debug('Waiting for selector of play button');
+            await page.waitForSelector('.vjs-big-play-button');
 
             logger.debug('Clicking play on the video');
             await page.click('.vjs-big-play-button');
