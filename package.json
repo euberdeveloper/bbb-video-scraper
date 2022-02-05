@@ -1,0 +1,26 @@
+{
+  "name": "bbb-video-scraper",
+  "version": "1.0.0",
+  "description": "This is a scraper written in Node.js and using Puppeteer that gets the videos served by BBB services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/euberdeveloper/bbb-video-scraper.git"
+  },
+  "keywords": [
+    "bbb",
+    "scraper",
+    "video",
+    "video-scraper",
+    "bbb-scraper"
+  ],
+  "author": "Eugenio Vinicio Berretta <euberdeveloper@gmail.com>",
+  "license": "GPLV3",
+  "bugs": {
+    "url": "https://github.com/euberdeveloper/bbb-video-scraper/issues"
+  },
+  "homepage": "https://github.com/euberdeveloper/bbb-video-scraper#readme"
+}
