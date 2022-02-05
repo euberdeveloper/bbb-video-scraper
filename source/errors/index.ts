@@ -18,3 +18,4 @@ export class BBBVideoScraperError extends Error {
 export * from './browserNotLaunched';
 export * from './duringBrowserLaunch';
 export * from './duringBrowserClose';
+export * from './duringScraping';

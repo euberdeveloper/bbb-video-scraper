@@ -5,6 +5,7 @@ import { BrowserOptions, InternalBrowserOptions, InternalScrapingOptions, Scrapi
  */
 export const DEFAULT_BROWSER_OPTIONS: InternalBrowserOptions = {
     debug: false,
+    debugScope: 'BBBVideoScraper',
     windowSize: {
         width: 1920,
         height: 1080
@@ -24,6 +25,7 @@ export function handleBrowserOptions(
     return typeof options === 'object'
         ? {
               debug: options.debug ?? defaultBrowserOptions.debug,
+              debugScope: options.debugScope !== undefined ? options.debugScope : defaultBrowserOptions.debugScope,
               windowSize: {
                   width: options.windowSize?.width ?? defaultBrowserOptions.windowSize.width,
                   height: options.windowSize?.height ?? defaultBrowserOptions.windowSize.height
@@ -39,9 +41,12 @@ export function handleBrowserOptions(
 export const DEFAULT_SCRAPING_OPTIONS: InternalScrapingOptions = {
     duration: null,
     delayAfterVideoStarted: 0,
-    delayAfterVideoFinished: 15,
+    delayAfterVideoFinished: 15_000,
     audio: true,
-    video: true
+    video: true,
+    debug: null,
+    debugScope: 'BBBVideoScraper',
+    useGlobalDebug: false
 };
 
 /**
@@ -60,7 +65,10 @@ export function handleScrapingOptions(
               delayAfterVideoFinished:
                   options.delayAfterVideoFinished ?? defaultScrapingOptions.delayAfterVideoFinished,
               audio: options.audio ?? defaultScrapingOptions.audio,
-              video: options.video ?? defaultScrapingOptions.video
+              video: options.video ?? defaultScrapingOptions.video,
+              debug: options.debug !== undefined ? options.debug : defaultScrapingOptions.debug,
+              debugScope: options.debugScope !== undefined ? options.debugScope : defaultScrapingOptions.debugScope,
+              useGlobalDebug: options.useGlobalDebug ?? defaultScrapingOptions.useGlobalDebug
           }
         : { ...defaultScrapingOptions };
 }

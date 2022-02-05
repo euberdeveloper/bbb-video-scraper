@@ -5,6 +5,7 @@ import { DeepPartial } from '../deep-partial';
  */
 export interface InternalBrowserOptions {
     debug: boolean;
+    debugScope: string | null;
     browserExecutablePath: string;
     windowSize: {
         width: number;
@@ -26,6 +27,9 @@ export interface InternalScrapingOptions {
     delayAfterVideoFinished: number;
     audio: boolean;
     video: boolean;
+    useGlobalDebug: boolean;
+    debug: boolean | null;
+    debugScope: string | null;
 }
 
 /**

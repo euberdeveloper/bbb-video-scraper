@@ -7,7 +7,8 @@ import { BrowserOptions, InternalBrowserOptions, ScrapingOptions } from '../type
 import {
     BBBVideoScraperBrowserNotLaunchedError,
     BBBVideoScraperDuringBrowserCloseError,
-    BBBVideoScraperDuringBrowserLaunchError
+    BBBVideoScraperDuringBrowserLaunchError,
+    BBBVideoScraperDuringScrapingError
 } from '../errors';
 
 import { handleBrowserOptions, handleScrapingOptions } from './options';
@@ -29,7 +30,8 @@ export class BBBVideoScraper {
     public setBrowserOptions(options: BrowserOptions): void {
         this.options = handleBrowserOptions(options);
         this.logger = new Logger({
-            debug: this.options.debug
+            debug: this.options.debug,
+            scope: this.options.debugScope
         });
 
         this.logger.debug('BrowserOptions are', this.options);
@@ -66,43 +68,51 @@ export class BBBVideoScraper {
             throw new BBBVideoScraperBrowserNotLaunchedError();
         }
 
-        this.logger.debug('Launching page and going to the url', url);
-        const page = await this.browser.newPage();
-        await page.goto(url, { waitUntil: 'networkidle0' });
+        try {
+            const logger = options.useGlobalDebug
+                ? this.logger
+                : new Logger({ debug: scrapingOptions.debug ?? this.options.debug, scope: scrapingOptions.debugScope });
 
-        if (scrapingOptions.duration === null) {
-            this.logger.debug('Getting the total time of the video');
-            const durationText = await page.$eval('.vjs-remaining-time-display', el => {
-                return el.innerHTML;
+            logger.debug('Launching page and going to the url', url);
+            const page = await this.browser.newPage();
+            await page.goto(url, { waitUntil: 'networkidle0' });
+
+            if (scrapingOptions.duration === null) {
+                logger.debug('Getting the total time of the video');
+                const durationText = await page.$eval('.vjs-remaining-time-display', el => {
+                    return el.innerHTML;
+                });
+                scrapingOptions.duration = this.handleDurationText(durationText);
+            }
+
+            logger.debug('Clicking play on the video');
+            await page.click('.vjs-big-play-button');
+
+            logger.debug(`Waiting for ${scrapingOptions.delayAfterVideoStarted}ms before starting recording`);
+            await page.waitForTimeout(scrapingOptions.delayAfterVideoStarted);
+
+            logger.debug('Staring recording');
+            const file = fs.createWriteStream(destPath);
+            const stream = await puppeteerStream.getStream(page, {
+                audio: scrapingOptions.audio,
+                video: scrapingOptions.video
             });
-            scrapingOptions.duration = this.handleDurationText(durationText);
+            stream.pipe(file);
+
+            logger.debug('Waiting for video to end. Duration is', scrapingOptions.duration);
+            await page.waitForTimeout(scrapingOptions.duration);
+
+            logger.debug(`Waiting for ${scrapingOptions.delayAfterVideoFinished}ms before stopping recording`);
+            await page.waitForTimeout(scrapingOptions.delayAfterVideoFinished);
+
+            logger.debug('Stopping recording');
+            await stream.destroy();
+            file.close();
+
+            logger.debug('Closing page');
+            await page.close();
+        } catch (error) {
+            throw new BBBVideoScraperDuringScrapingError(error);
         }
-
-        this.logger.debug('Clicking play on the video');
-        await page.click('.vjs-big-play-button');
-
-        this.logger.debug(`Waiting for ${scrapingOptions.delayAfterVideoStarted}ms before starting recording`);
-        await page.waitForTimeout(scrapingOptions.delayAfterVideoStarted);
-
-        this.logger.debug('Staring recording');
-        const file = fs.createWriteStream(destPath);
-        const stream = await puppeteerStream.getStream(page, {
-            audio: scrapingOptions.audio,
-            video: scrapingOptions.video
-        });
-        stream.pipe(file);
-
-        this.logger.debug('Waiting for video to end. Duration is', scrapingOptions.duration);
-        await page.waitForTimeout(scrapingOptions.duration);
-
-        this.logger.debug(`Waiting for ${scrapingOptions.delayAfterVideoFinished}ms before stopping recording`);
-        await page.waitForTimeout(scrapingOptions.delayAfterVideoFinished);
-
-        this.logger.debug('Stopping recording');
-        await stream.destroy();
-        file.close();
-
-        this.logger.debug('Closing page');
-        await page.close();
     }
 }
