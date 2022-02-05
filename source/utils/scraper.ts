@@ -13,20 +13,36 @@ import {
 
 import { handleBrowserOptions, handleScrapingOptions } from './options';
 
+/**
+ * The [[BBBVideoScraper]] class, that scrapes a video from a "BBB WebKonferenze" and saves it to a file.
+ */
 export class BBBVideoScraper {
     private logger: Logger;
     private options: InternalBrowserOptions;
     private browser: /*Browser*/ any | null = null;
 
+    /**
+     * The constructor of the [[BBBVideoScraper]] class.
+     * @param options The [[BrowserOptions]] to pass to the instance.
+     */
     constructor(options: BrowserOptions = {}) {
         this.setBrowserOptions(options);
     }
 
+    /**
+     * Given the duration text gotten from the page's HTML (e.g. 1:30:23), it returns the duration in milliseconds.
+     * @param durationText The duration text gotten from the page's HTML.
+     * @returns The duration in milliseconds.
+     */
     private handleDurationText(durationText: string): number {
         const [hours, minutes, seconds] = durationText.split(':');
         return (+hours * 3600 + +minutes * 60 + +seconds) * 1000;
     }
 
+    /**
+     * Changes the [[BrowserOptions]] options.
+     * @param options The new options.
+     */
     public setBrowserOptions(options: BrowserOptions): void {
         this.options = handleBrowserOptions(options);
         this.logger = new Logger({
@@ -37,6 +53,9 @@ export class BBBVideoScraper {
         this.logger.debug('BrowserOptions are', this.options);
     }
 
+    /**
+     * Launches the browser window.
+     */
     public async launch(): Promise<void> {
         try {
             this.logger.debug('Launching browser');
@@ -51,6 +70,9 @@ export class BBBVideoScraper {
         }
     }
 
+    /**
+     * Closes the browser window.
+     */
     public async close(): Promise<void> {
         try {
             if (this.browser) {
@@ -61,6 +83,12 @@ export class BBBVideoScraper {
         }
     }
 
+    /**
+     * Scrapes a video from a BBB conference.
+     * @param url The url of the video to save
+     * @param destPath The path where the video will be saved. Note that the extension should be webm.
+     * @param options The [[ScrapingOptions]] to pass to this method.
+     */
     public async scrape(url: string, destPath: string, options: ScrapingOptions = {}): Promise<void> {
         const scrapingOptions = handleScrapingOptions(options);
 

@@ -135,6 +135,7 @@ main();
 
 * The default browser is **Google Chrome** on `/usr/bin/google-chrome`, because Chromium did not support the BBB videos. You can always change the browser executable path on the configurations.
 * By default (if the **duration** option is `null`), the **duration of the recording will be automatically detected** by looking at the vjs player of the page and by adding a stopping delay of 15 seconds.
+* This module can be uses only in **headful mode**.
 
 ## Project history
 
