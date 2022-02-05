@@ -90,6 +90,7 @@ export class BBBVideoScraper {
             audio: scrapingOptions.audio,
             video: scrapingOptions.video
         });
+        stream.pipe(file);
 
         this.logger.debug('Waiting for video to end. Duration is', scrapingOptions.duration);
         await page.waitForTimeout(scrapingOptions.duration);
@@ -103,7 +104,5 @@ export class BBBVideoScraper {
 
         this.logger.debug('Closing page');
         await page.close();
-
-        stream.pipe(file);
     }
 }
