@@ -1,8 +1,14 @@
 {
   "name": "bbb-video-scraper",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "This is a scraper written in Node.js and using Puppeteer that gets the videos served by BBB services",
   "main": "index.js",
+  "files": [
+    "package.json",
+    "bundled",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "clean": "shx rm -rf dist bundled",
     "pretranspile": "npm run clean",
