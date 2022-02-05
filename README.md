@@ -131,6 +131,66 @@ main();
 
 ...all the options can be seen in the API section or with the Typescript definitions.
 
+## API
+
+The documentation site is: [euberlog documentation](https://euberlog.euber.dev)
+
+The documentation for development site is: [euberlog dev documentation](https://euberlog-dev.euber.dev)
+
+### Logger
+
+The logger class, its instances will be the euber loggers.
+
+**Syntax:**
+
+`const scraper = new BBBVideoScraper(options);`
+
+**Parameters:**
+
+* __options__: Optional. A `BrowserOptions` object that specifies the options for this instance.
+
+**Methods:**
+
+* __setBrowserOptions(options: BrowserOptions): void__: Changes the browser options with the ones given by the `options` parameter.
+* __launch(): Promise<void>__: Launches the browser window.
+* __close(): Promise<void>__: Closes the browser window.
+* __scrape(url: string, destPath: string, options: ScrapingOptions): Promise<void>__: Scrapes the video in `url` and saves it to `destPath`. Some ScrapingOptions can be passed.
+
+### BrowserOptions
+
+The options given to the BBBVideoScraper constructor.
+
+**Parameters:**
+
+* __debug__: Default value: `false`. If true, it will show debug log.
+* __debugScope__: Default value: `'BBB Video Scraper'`. The scope given to the euberlog debug logger.
+* __browserExecutablePath__: Default value: `'/usr/bin/google-chrome'`. The path to the browser executable.
+* __windowSize__: Default value: `{ width: 1920, height: 1080 }`. The object that says how big the window size will be.
+
+### ScrapingOptions
+
+The options passing to a scrape method.
+
+**Parameters:**
+
+* __duration__: Default value: `null`. The duration in milliseconds of the recorded video.
+* __delayAfterVideoStarted__: Default value: `0`. The delay in milliseconds after that the play button has been clicked.
+* __delayAfterVideoFinished__: Default value: `15_000`. The delay in milliseconds after that the duration milliseconds are past and before that the recording is stopped.
+* __audio__: Default value: `true`. If true, the audio will be recorded.
+* __video__: Default value: `true`. If true, the video will be recorded.
+* __useGlobalDebug__: Default value: `true`. If true, the global logger will be used, ignoring other debug options in this object.
+* __debug__: Default value: `null`. If null, the debug will be shown by looking at the passed BrowserOptions. Otherwise, if useGlobalDebug is false, this specifies if the debug will be shown.
+* __debugScope__: Default value: `null`. If useGlobalDebug is true, this will be ignore. Otherwise, this specifies if the euberlog logger scope for the debug of this scrape.
+
+### Errors
+
+There are also some error classes that can be thrown by this module:
+
+* __BBBVideoScraperError__: The base error class of the bbb-video-scraper module
+* __BBBVideoScraperBrowserNotLaunchedError__: The error extending BBBVideoScraperError that is thrown when actions on a non-launched browser are attempted to be executed.
+* __BBBVideoScraperDuringBrowserLaunchError__: The error extending BBBVideoScraperError that is thrown when an error occurred when a browser is getting closed.
+* __BBBVideoScraperDuringBrowserCloseError__: The error extending BBBVideoScraperError that is thrown when an error occurs during the launch of a browser.
+* __BBBVideoScraperDuringScrapingError__: The error extending BBBVideoScraperError that is thrown when an error occurs during a video scraping
 ## Notes
 
 * The default browser is **Google Chrome** on `/usr/bin/google-chrome`, because Chromium did not support the BBB videos. You can always change the browser executable path on the configurations.
