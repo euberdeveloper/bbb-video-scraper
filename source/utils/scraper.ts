@@ -129,7 +129,11 @@ export class BBBVideoScraper {
             const file = fs.createWriteStream(destPath);
             const stream = await puppeteerStream.getStream(page, {
                 audio: scrapingOptions.audio,
-                video: scrapingOptions.video
+                video: scrapingOptions.video,
+                mimeType: scrapingOptions.mimeType,
+                audioBitsPerSecond: scrapingOptions.audioBitsPerSecond,
+                videoBitsPerSecond: scrapingOptions.videoBitsPerSecond,
+                frameSize: scrapingOptions.frameSize
             });
             stream.pipe(file);
 

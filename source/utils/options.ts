@@ -44,6 +44,10 @@ export const DEFAULT_SCRAPING_OPTIONS: InternalScrapingOptions = {
     delayAfterVideoFinished: 15_000,
     audio: true,
     video: true,
+    mimeType: 'video/webm',
+    audioBitsPerSecond: undefined,
+    videoBitsPerSecond: undefined,
+    frameSize: 20,
     debug: null,
     debugScope: 'BBBVideoScraper',
     useGlobalDebug: false
@@ -66,6 +70,9 @@ export function handleScrapingOptions(
                   options.delayAfterVideoFinished ?? defaultScrapingOptions.delayAfterVideoFinished,
               audio: options.audio ?? defaultScrapingOptions.audio,
               video: options.video ?? defaultScrapingOptions.video,
+              mimeType: options.mimeType ?? defaultScrapingOptions.mimeType,
+              audioBitsPerSecond: options.audioBitsPerSecond ?? defaultScrapingOptions.audioBitsPerSecond,
+              videoBitsPerSecond: options.videoBitsPerSecond ?? defaultScrapingOptions.videoBitsPerSecond,
               debug: options.debug !== undefined ? options.debug : defaultScrapingOptions.debug,
               debugScope: options.debugScope !== undefined ? options.debugScope : defaultScrapingOptions.debugScope,
               useGlobalDebug: options.useGlobalDebug ?? defaultScrapingOptions.useGlobalDebug

@@ -178,6 +178,10 @@ The options passing to a scrape method.
 * __delayAfterVideoFinished__: Default value: `15_000`. The delay in milliseconds after that the duration milliseconds are past and before that the recording is stopped.
 * __audio__: Default value: `true`. If true, the audio will be recorded.
 * __video__: Default value: `true`. If true, the video will be recorded.
+* __mimeType__: Default value: `'video/webm'`. The mimetype of the recorded video or audio.
+* __audioBitsPerSecond__: Default value: `undefined`. The chosen bitrate for the audio component of the media. If not specified, it will be adaptive, depending upon the sample rate and the number of channels.
+* __videoBitsPerSecond__: Default value: `undefined`. The chosen bitrate for the video component of the media. If not specified, the rate will be 2.5Mbps.
+* __frameSize__: Default value: `20`. The number of milliseconds to record into each packet.
 * __useGlobalDebug__: Default value: `true`. If true, the global logger will be used, ignoring other debug options in this object.
 * __debug__: Default value: `null`. If null, the debug will be shown by looking at the passed BrowserOptions. Otherwise, if useGlobalDebug is false, this specifies if the debug will be shown.
 * __debugScope__: Default value: `null`. If useGlobalDebug is true, this will be ignore. Otherwise, this specifies if the euberlog logger scope for the debug of this scrape.

@@ -1,3 +1,4 @@
+import { BrowserMimeType } from 'puppeteer-stream';
 import { DeepPartial } from '../deep-partial';
 
 /**
@@ -50,6 +51,22 @@ export interface InternalScrapingOptions {
      * If true, the video will be recorded. (Default value: true)
      */
     video: boolean;
+    /**
+     * The mimetype of the recorded video or audio. (Default value: 'video/webm')
+     */
+    mimeType: BrowserMimeType;
+    /**
+     * The chosen bitrate for the audio component of the media. If not specified, it will be adaptive, depending upon the sample rate and the number of channels. (Default value: undefined)
+     */
+    audioBitsPerSecond?: number;
+    /**
+     * The chosen bitrate for the video component of the media. If not specified, the rate will be 2.5Mbps. (Default value: undefined)
+     */
+    videoBitsPerSecond?: number;
+    /**
+     * The number of milliseconds to record into each packet. (Default value: 20)
+     */
+    frameSize?: number;
     /**
      * If true, the global logger will be used, ignoring other debug options in this object. (Default value: true)
      */
