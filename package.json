@@ -1,6 +1,6 @@
 {
   "name": "bbb-video-scraper",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "This is a scraper written in Node.js and using Puppeteer that gets the videos served by BBB services",
   "main": "bundled/index.js",
   "types": "bundled/index.d.ts",
@@ -62,6 +62,6 @@
   },
   "dependencies": {
     "euberlog": "^2.1.0",
-    "puppeteer-stream": "^2.0.8"
+    "puppeteer-stream": "^2.0.9"
   }
 }
