@@ -19,9 +19,8 @@ jobs:
       - name: Install node dependencies
         run: npm install
         
-      # There are some errors on the puppeteer-stream for Typescript
-      # - name: Transpile code
-      #   run: npm run transpile
+      - name: Transpile code
+        run: npm run transpile
         
       - name: Bundle
         run: npm run bundle
