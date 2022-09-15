@@ -170,6 +170,10 @@ The options passing to a scrape method, see [video-scraper-core](https://github.
 
 There are also some error classes that can be thrown by this module, see [video-scraper-core](https://github.com/euberdeveloper/video-scraper-core#errors) for more information.
 
+## Tests
+
+The package is tested by using **[jest](https://jestjs.io/)** and **[ts-jest](https://www.npmjs.com/package/ts-jest)**. The tests try for real to download some videos and check if they are saved, therefore, are not run in the CI because they are not headless.
+
 ## Notes
 
 * The default browser is **Google Chrome** on `/usr/bin/google-chrome`, because Chromium did not support the BBB videos. You can always change the browser executable path on the configurations.

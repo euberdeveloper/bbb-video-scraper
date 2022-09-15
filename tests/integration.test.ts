@@ -1,9 +1,14 @@
-import { BBBVideoScraper } from '../source';
+import { BBBVideoScraper, ScrapingOptions } from '../source';
 
 import * as fs from 'fs';
 import * as path from 'path';
 
 const assetsPath = path.join(__dirname, 'assets');
+const scraperOptions: ScrapingOptions = {
+    duration: 2000,
+    delayAfterVideoStarted: 0,
+    delayAfterVideoFinished: 0
+};
 
 describe('Integration tests', () => {
     beforeAll(async () => {
@@ -21,7 +26,7 @@ describe('Integration tests', () => {
             debug: true
         });
         await scraper.launch();
-        await scraper.scrape(url, destination, { duration: 2000 });
+        await scraper.scrape(url, destination, scraperOptions);
         await scraper.close();
 
         expect(fs.existsSync(destination)).toBe(true);
@@ -39,8 +44,8 @@ describe('Integration tests', () => {
             debug: true
         });
         await scraper.launch();
-        await scraper.scrape(url1, destination1, { duration: 2000 });
-        await scraper.scrape(url2, destination2, { duration: 2000 });
+        await scraper.scrape(url1, destination1, scraperOptions);
+        await scraper.scrape(url2, destination2, scraperOptions);
         await scraper.close();
 
         expect(fs.existsSync(destination1)).toBe(true);
@@ -61,7 +66,7 @@ describe('Integration tests', () => {
         await scraper.launch();
 
         async function scrape(dest: string, link: string) {
-            await scraper.scrape(link, dest, { duration: 2000 });
+            await scraper.scrape(link, dest, scraperOptions);
         }
 
         const tasks = [
@@ -78,7 +83,7 @@ describe('Integration tests', () => {
 
     afterAll(async () => {
         if (fs.existsSync(assetsPath)) {
-            await fs.promises.unlink(assetsPath);
+            await fs.promises.rm(assetsPath, { recursive: true, force: true });
         }
     });
 });
