@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "ES5",
+        "lib": [
+            "ES2021",
+            "DOM"
+        ],
+        "resolveJsonModule": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "declaration": true,
+        "outDir": "./dist",
+        "skipLibCheck": true
+    }
+}
