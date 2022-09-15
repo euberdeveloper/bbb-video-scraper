@@ -84,10 +84,8 @@ async function scrape(dest, link) {
     });
     // Launch the Chrome browser
     await scraper.launch();
-    // Scrape and save the first video
-    await scraper.scrape(, './saved.webm');
-    // Scrape and save the second video
-    await scraper.scrape('', './saved_bis.webm');
+    // Scrape and save the video
+    await scraper.scrape(link, dest);
     // Close the browser
     await scraper.close();
 }
