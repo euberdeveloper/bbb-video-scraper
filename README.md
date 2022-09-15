@@ -162,15 +162,15 @@ The BBBVideoScraper class, that scrapes a video from a "BBB WebKonferenze" and s
 
 ### BrowserOptions
 
-The options given to the BBBVideoScraper constructor, see [video-scraper-core](https://www.npmjs.com/package/video-scraper-core) for more information.
+The options given to the BBBVideoScraper constructor, see [video-scraper-core](https://github.com/euberdeveloper/video-scraper-core#browseroptions) for more information.
 
 ### ScrapingOptions
 
-The options passing to a scrape method, see [video-scraper-core](https://www.npmjs.com/package/video-scraper-core) for more information.
+The options passing to a scrape method, see [video-scraper-core](https://github.com/euberdeveloper/video-scraper-core#scrapingoptions) for more information.
 
 ### Errors
 
-There are also some error classes that can be thrown by this module, see [video-scraper-core](https://www.npmjs.com/package/video-scraper-core) for more information.
+There are also some error classes that can be thrown by this module, see [video-scraper-core](https://github.com/euberdeveloper/video-scraper-core#errors) for more information.
 
 ## Notes
 
